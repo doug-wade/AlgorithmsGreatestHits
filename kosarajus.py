@@ -105,8 +105,3 @@ def process_sccs(l):
 class MyThread(Thread):
     def run(self):
         print(process_sccs(kosarajus_two_pass_algorithm('./SCC.txt')))
-
-sys.setrecursionlimit(2 ** 20)
-threading.stack_size(67108864)
-thread = MyThread()
-thread.start()

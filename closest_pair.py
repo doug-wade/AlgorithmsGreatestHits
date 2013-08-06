@@ -25,10 +25,3 @@ def get_closest_y_pair(point_list):
 def closest_pair(point_list):
     """Gets the closest pair of points from a list of points."""
     return point_list[0], point_list[1]
-
-# Blah blah testing data...
-testPoint1 = point(0,0)
-testPoint2 = point(1,1)
-testPoint3 = point(4,4)
-result_point1, result_point2 = closest_pair([testPoint1, testPoint2, testPoint3])
-print("(%r, %r), (%r, %r)" % (result_point1.x, result_point1.y, result_point2.x, result_point2.y))

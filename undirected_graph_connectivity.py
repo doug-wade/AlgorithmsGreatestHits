@@ -56,7 +56,3 @@ def get_graph_from_file(file_path):
         tempArr.remove('\n')
         graph[int(tempArr[0])] = [int(x) for x in tempArr[1:len(tempArr)]]
     return graph
-
-# Example uses:
-# print(undirected_graph_connectivity(get_graph_from_file('./tinyGraph.txt')))
-# print(is_connected(get_graph_from_file('./tinyGraph.txt')))

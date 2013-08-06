@@ -70,6 +70,3 @@ def get_graph_from_file(file_path):
         tempArr.remove('\n')
         graph[tempArr[0]] = [x for x in tempArr[1:len(tempArr)]]
     return graph
-
-# Example uses:
-print(get_shortest_path(get_graph_from_file('./tinyGraph.txt'), 'b', 'd'))

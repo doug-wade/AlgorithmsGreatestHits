@@ -54,6 +54,3 @@ def count_file_inversions(file_path):
     final_result = count_array_inversions(
         [int(line) for line in open(file_path)], 0)
     print("There were %d inversions." % final_result.inversions)
-
-# The homework script.
-count_file_inversions(array_location)

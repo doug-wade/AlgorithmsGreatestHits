@@ -46,5 +46,3 @@ def get_graph_from_file(file_path, isReversed=False):
         else:
             graph[k] = [v]
     return graph
-
-print(topological_sort(get_graph_from_file('./tinySCC.txt')))

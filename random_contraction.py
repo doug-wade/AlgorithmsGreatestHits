@@ -49,5 +49,3 @@ def get_graph_from_file(file_path):
         tempArr.remove('\n')
         graph[int(tempArr[0])] = [int(x) for x in tempArr[1:len(tempArr)]]
     return graph
-
-print(karger_contraction(get_graph_from_file('kargerMinCut.txt')))

@@ -37,12 +37,3 @@ def get_graph_from_file(file_path):
         graph[k] = {int(y.split(',')[0]):int(y.split(',')[1]) 
                     for y in tempArr[1:len(tempArr)]}
     return graph
-
-questions = [7,37,59,82,99,115,133,165,188,197]
-results = {}
-g = get_graph_from_file('./dijkstraData.txt')
-for q in questions:
-    resDict = dijkstras(g, 1, q)
-    results[q] = resDict[q]
-for key in results:
-    print(str(key) + ' ' + str(results[key]))
