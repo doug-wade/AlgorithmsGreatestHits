@@ -118,7 +118,6 @@ def median_maintenance(file_location):
                 medians.append(max_bottom)
             continue
 
-
         # Put the new int in the right place
         if new_int > min_top:
             top_half.push(new_int)
@@ -152,6 +151,3 @@ def median_maintenance(file_location):
             medians.append(max_bottom)
 
     return(sum_medians(medians))
-
-print(median_maintenance('./data/Median.txt'))
-#median_maintenance('./data/Median.txt')
