@@ -1,5 +1,5 @@
 import os
-from heaps import minheapq
+from heaps import tuple_min_heapq
 from graph import graph
 
 def update_node_heap(graph, node_heap, added_node):
@@ -8,7 +8,9 @@ def update_node_heap(graph, node_heap, added_node):
     always the shortest edge from the explored area.
     """
     for key in graph[added_node]:
-        if node_heap[key] > graph[added_node][key]:
+        if not node_heap.contains(key):
+            node_heap.push(key, graph[added_node][key])
+        elif node_heap[key] > graph[added_node][key]:
             node_heap.update(key, graph[added_node][key])
 
 def prims_mst(graph):
@@ -18,11 +20,15 @@ def prims_mst(graph):
     S = graph.get_random_node()
     X = { S:True }
     node_heap = tuple_min_heapq()
+    total_weight = 0
 
-    while X.keys() != graph.keys():
+    while X.keys() != graph.get_nodes():
         update_node_heap(graph, node_heap, S)
-        S = node_heap.pop()
+        weight, S = node_heap.pop()
+        total_weight += weight
+        X[S] = True
 
+    return total_weight
 
 def get_graph_from_file(file_path):
     """

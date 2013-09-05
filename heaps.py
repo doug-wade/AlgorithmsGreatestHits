@@ -2,6 +2,8 @@
 Simple wrappers for the built-in heapq module for ease of use.
 """
 
+import heapq
+
 class maxheapq:
     def __init__(self, L=[]):
         """
@@ -83,7 +85,7 @@ class minheapq:
         self.push(item)
         return(self.pop())
 
-class tuple_min_heapq():
+class tuple_min_heapq:
     def __init__(self):
         """
         A simple wrapper for heapq to match my intuitions about how a heap would be
@@ -95,6 +97,15 @@ class tuple_min_heapq():
 
     def __getitem__(self, key):
         return self._d[key]
+
+    def contains(self, key):
+        """
+        Returns True if a key is in the heap, False otherwise.
+        """
+        if key in self._d:
+            return True
+        else:
+            return False
 
     def length(self):
         """
@@ -133,4 +144,4 @@ class tuple_min_heapq():
         """
         if self._d[key] != value:
             self._d[key] = value
-            self._l = [(k,v) if (k != key) else (key, value) for (k, v) in self._l]
+            self._h = [(k,v) if (k != key) else (key, value) for (k, v) in self._h]

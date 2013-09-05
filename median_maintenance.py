@@ -1,4 +1,3 @@
-import heapq
 from heaps import maxheapq, minheapq
 
 def sum_medians(medians):

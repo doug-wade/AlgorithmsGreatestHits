@@ -52,4 +52,4 @@ class graph:
         """
         Returns a random node from the graph
         """
-        return random.choice(self._G)
+        return random.choice(list(self._G.keys()))
