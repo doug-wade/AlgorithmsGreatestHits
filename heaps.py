@@ -107,6 +107,11 @@ class tuple_min_heapq:
         else:
             return False
 
+    def delete(self, key):
+        if key in self._d.keys():
+            del self._d[key]
+            self._h = [(k,v) for (k, v) in self._h if (k != key)]
+
     def length(self):
         """
         Returns the number of elements in the heap.
@@ -144,4 +149,4 @@ class tuple_min_heapq:
         """
         if self._d[key] != value:
             self._d[key] = value
-            self._h = [(k,v) if (k != key) else (key, value) for (k, v) in self._h]
+            self._h = [(v, k) if (k != key) else (value, key) for (v, k) in self._h]
