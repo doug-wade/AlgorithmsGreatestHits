@@ -1,16 +1,18 @@
-"""
-A simple implementation of a linked list.
-"""
-
 import random
 import unittest
 
 class stack:
+    """
+    A simple implementation of a stack.
+    """
+
     def __init__(self):
         """
         Initializes an empty stack.
         """
         self._first = None
+        self.length = 0
+
 
     class Node:
         """
@@ -20,21 +22,13 @@ class stack:
             self.value = value
             self.next = next
 
-    def push(self, val):
+    def isEmpty(self):
         """
-        Adds a value to the top of the stack.
+        Returns True if the list is empty, False otherwise.
         """
-        self._first = self.Node(val, self._first)
-
-    def pop(self):
-        """
-        Pops the most recent value added to the stack off the top of the stack
-        """
-        if (self.isEmpty()):
-            return None
-        oldfirst = self._first
-        self._first = oldfirst.next
-        return oldfirst.value
+        if (self._first == None):
+            return True
+        return False
 
     def peek(self):
         """
@@ -43,13 +37,29 @@ class stack:
         """
         return self._first.value
 
-    def isEmpty(self):
+    def pop(self):
         """
-        Returns True if the list is empty, False otherwise.
+        Pops the most recent value added to the stack off the top of the stack
         """
-        if (self._first == None):
-            return True
-        return False
+        if (self.isEmpty()):
+            return None
+        self.length -= 1
+        oldfirst = self._first
+        self._first = oldfirst.next
+        return oldfirst.value
+
+    def push(self, val):
+        """
+        Adds a value to the top of the stack.
+        """
+        self.length += 1
+        self._first = self.Node(val, self._first)
+
+    def size(self):
+        """
+        Returns the number of items currently in the stack.
+        """
+        return self.length
 
 class StackTests(unittest.TestCase):
 
@@ -102,6 +112,16 @@ class StackTests(unittest.TestCase):
         s.push("This is a string")
         s.pop()
         self.assertTrue(s.isEmpty())
+
+    def test_length(self):
+        s = stack()
+        for i in range(10):
+            self.assertEqual(i, s.size())
+            s.push(i)
+
+        for i in range(10):
+            self.assertEqual(10-i, s.size())
+            s.pop()
 
 if __name__ == '__main__':
     unittest()
