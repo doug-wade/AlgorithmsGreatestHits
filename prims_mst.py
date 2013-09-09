@@ -9,16 +9,16 @@ def update_node_heap(graph, node_heap, added_node, explored):
     always the shortest edge from the explored area.
     """
     for key in graph[added_node]:
-        print(str(key) + " " + str(explored.keys()))
+        # print(str(key) + " " + str(explored.keys()))
         if key in explored.keys():
-            print("(explored)")
+            # print("(explored)")
             node_heap.delete(key)
         else:
             if not node_heap.contains(key):
-                print("(adding " + str(key) + " with weight " + str(graph[added_node][key]) + ")")
+                # print("(adding " + str(key) + " with weight " + str(graph[added_node][key]) + ")")
                 node_heap.push(key, graph[added_node][key])
             elif node_heap[key] > graph[added_node][key]:
-                print("(changing from " + str(node_heap[key]) + " to " + str(graph[added_node][key]))
+                # print("(changing from " + str(node_heap[key]) + " to " + str(graph[added_node][key]))
                 node_heap.update(key, graph[added_node][key])
 
 def prims_mst(graph):
@@ -26,7 +26,7 @@ def prims_mst(graph):
     Performs Prim's Minimum Spanning Tree algorithm on a custom graph class.
     """
     S = graph.get_random_node()
-    print("Starting with " + str(S))
+    # print("Starting with " + str(S))
     X = { S:True }
     node_heap = tuple_min_heapq()
     total_weight = 0
@@ -35,7 +35,7 @@ def prims_mst(graph):
         update_node_heap(graph, node_heap, S, X)
         # pdb.set_trace()
         S, weight = node_heap.pop()
-        print(str(S) + ": " + str(weight))
+        # print(str(S) + ": " + str(weight))
         total_weight += weight
         X[S] = True
 
@@ -61,7 +61,7 @@ def get_graph_from_file(file_path):
     return file_graph
 
 # print(get_graph_from_file("./data/edges.txt"))
-adj_list = get_graph_from_file("./data/primcase.txt")
+adj_list = get_graph_from_file("./data/tinyGraph.txt")
 
 # inspect the graph:
 # for node in adj_list.get_nodes():

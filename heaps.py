@@ -110,7 +110,7 @@ class tuple_min_heapq:
     def delete(self, key):
         if key in self._d.keys():
             del self._d[key]
-            self._h = [(k,v) for (k, v) in self._h if (k != key)]
+            self._h = [(v, k) for (v, k) in self._h if (k != key)]
 
     def length(self):
         """
