@@ -17,3 +17,6 @@ def get_array_from_file(file_location):
     for line in f:
         int_dict[int(line)] = int(line)
     return int_dict
+
+int_hash = get_array_from_file('./data/algo1-programming_prob-2sum.txt')
+print(find_sums(int_hash,-10000,10000))

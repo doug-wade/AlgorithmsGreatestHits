@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(0, '../data_structures')
-
 import os
 import pdb
 from heaps import tuple_min_heapq
@@ -64,7 +61,7 @@ def get_graph_from_file(file_path):
     return file_graph
 
 # print(get_graph_from_file("./data/edges.txt"))
-adj_list = get_graph_from_file("../data/tinyGraph.txt")
+adj_list = get_graph_from_file("./data/tinyGraph.txt")
 
 # inspect the graph:
 # for node in adj_list.get_nodes():

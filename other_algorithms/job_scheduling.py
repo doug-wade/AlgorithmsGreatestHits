@@ -37,3 +37,5 @@ def load_jobs(file_path):
     # jobs.sort(key=lambda tup: -100 * (tup[0] - tup[1]) - tup[0])
     jobs.sort(key=lambda tup: -100 * (tup[0] / tup[1]) - (1/tup[1]))
     return(jobs)
+
+print(get_weighted_completion_scores(load_jobs('./data/jobs.txt')))

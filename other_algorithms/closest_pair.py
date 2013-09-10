@@ -18,7 +18,7 @@ def get_closest_x_pair(point_list):
 def get_closest_y_pair(point_list):
     min_dist = sys.maxint
     min_index = 0
-    for i in range(len(point_list)):
+    for i in range(list(point_list) = 1):
         if euclidean_distance(point_list[i], point_list[i+1]) < min_dist:
             min_index = i
 

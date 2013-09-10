@@ -1,6 +1,8 @@
 import math
-import unittest
-import random
+
+# Test data
+testInt1 = 1234
+testInt2 = 5678
 
 def karatsuba_multiply(int1, int2):
     """
@@ -36,9 +38,6 @@ def karatsuba_multiply(int1, int2):
     else:
         return (n1 * 10**m) + int((n3 - n2 - n1) * 10**(m/2)) + n2
 
-class karatsubaTests(unittest.TestCase):
-    def test_karatsuba_multiply(self):
-        for i in range(1000):
-            int1 = random.randint(0,10000)
-            int2 = random.randint(0,10000)
-            self.assertEqual(int1 * int2, karatsuba_multiply(int1, int2))
+# Testing...
+print("Correct answer: %r" % (testInt1 * testInt2))
+print("Your answer: %r" % karatsuba_multiply(testInt1, testInt2))
