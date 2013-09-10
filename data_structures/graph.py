@@ -1,9 +1,9 @@
-"""
-An implementation of a graph as a dictionary of dictionaries.
-"""
 import random
 
 class graph:
+    """
+    An implementation of a graph as a dictionary of dictionaries.
+    """
     def __init__(self, G={}):
         """
         I guess you might want to build the adjacency hash yourself, and then

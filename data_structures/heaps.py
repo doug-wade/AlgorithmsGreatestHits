@@ -1,10 +1,9 @@
-"""
-Simple wrappers for the built-in heapq module for ease of use.
-"""
-
 import heapq
 
 class maxheapq:
+    """
+    Simple wrappers for the built-in heapq module for ease of use.
+    """
     def __init__(self, L=[]):
         """
         Set up as a class to prevent errors in negation.

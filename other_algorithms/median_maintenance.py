@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '../data_structures')
+
 from heaps import maxheapq, minheapq
 
 def sum_medians(medians):
