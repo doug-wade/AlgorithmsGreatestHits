@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '../data_structures')
+
 from heaps import minheapq, maxheapq
 import unittest
 import random
@@ -32,7 +35,7 @@ def read_file(file_path):
 class HeapSortTests(unittest.TestCase):
 
     def setUp(self):
-        self.int_file_path = './data/temp_int_file.txt'
+        self.int_file_path = './temp_int_file.txt'
         self.list_of_ints = []
         f = open(self.int_file_path, 'w')
         for i in range(100000):
