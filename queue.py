@@ -127,5 +127,5 @@ class QueueTests(unittest.TestCase):
             self.assertEqual(10-i, q.size())
             q.dequeue()
 
-if (__name__ == '__main__'):
+if __name__ == '__main__':
     unittest()
