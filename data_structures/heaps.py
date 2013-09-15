@@ -19,9 +19,6 @@ class maxheapq:
         """
         Returns the number of elements in the heap.
         """
-        # For this particular use case, I'll be checking the length much more
-        # often than I'll be changing the contents, so doing the bookeeping 
-        # will save time over repeatedly calling len().
         return(self._l)
 
     def pop(self):
