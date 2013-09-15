@@ -1,3 +1,6 @@
+import unittest
+import random
+
 def mergesort(array):
     """
     An implementation of the merge sort algorithm.  Recursively sorts arrays
@@ -39,3 +42,14 @@ def mergesort_from_file(file_path):
     a single element per line.
     """
     return mergesort([int(line) for line in open(file_path)])
+
+
+class MergeSortTests(unittest.TestCase):
+    def setUp(self):
+        self.list_of_ints = []
+        for i in range(100000):
+            next_int = random.randint(0,10000)
+            self.list_of_ints.append(next_int)
+
+    def test_merge_sort(self):
+        self.assertEqual(sorted(self.list_of_ints), mergesort(self.list_of_ints))

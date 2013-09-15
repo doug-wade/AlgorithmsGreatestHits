@@ -82,7 +82,20 @@ def quick_sort_internal(sort_array, start_index, end_index, pivot_type):
     comparisons += quick_sort_internal(sort_array, i, e, pivot_type)
     return comparisons
 
-# Sorts an array stored in a file formatted as having 1 integer per line
 def quick_sort_file(file_path, pivot_type):
+    """
+    Sorts an array stored as a newline-delimited file.
+    """
     final_result = quick_sort([int(line) for line in open(file_path)], pivot_type)
     print("Array: %r \n Comparisons: %r" % (final_result.array, final_result.comparisons))
+
+
+class QuickSortTests(unittest.TestCase):
+    def setUp(self):
+        self.list_of_ints = []
+        for i in range(100000):
+            next_int = random.randint(0,10000)
+            self.list_of_ints.append(next_int)
+
+    def test_quick_sort(self):
+        self.assertEqual(sorted(self.list_of_ints), quick_sort(self.list_of_ints))
