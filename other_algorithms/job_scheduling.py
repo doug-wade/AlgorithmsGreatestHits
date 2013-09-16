@@ -8,9 +8,6 @@ def get_weighted_completion_scores(job_list):
     total_length, score = 0, 0
 
     for job in job_list:
-        # for debugging:
-        # print(str(job[0]) + " " + str(job[1]))
-
         total_length += job[1]
         score += (total_length * job[0])
     return score
@@ -32,8 +29,5 @@ def load_jobs(file_path):
         if line:
             job = line.split(' ')
             jobs.append((int(job[0]), int(job[1])))
-
-    # this doesn't work properly, but it is part of the homework.
-    # jobs.sort(key=lambda tup: -100 * (tup[0] - tup[1]) - tup[0])
     jobs.sort(key=lambda tup: -100 * (tup[0] / tup[1]) - (1/tup[1]))
     return(jobs)

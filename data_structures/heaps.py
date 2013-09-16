@@ -1,4 +1,4 @@
-import heapq
+from heapq import *
 
 class maxheapq:
     """
@@ -11,7 +11,7 @@ class maxheapq:
         M = []
         for val in L:
             M.append(-1 * val)
-        heapq.heapify(M)
+        heapify(M)
         self._h = M
         self._l = len(M)
 
@@ -26,14 +26,14 @@ class maxheapq:
         Pops the maximum value off the heap.
         """
         self._l -= 1
-        return(-1 * heapq.heappop(self._h))
+        return(-1 * heappop(self._h))
 
     def push(self, item):
         """
         Pushes a new element onto the heap.
         """
         self._l += 1
-        heapq.heappush(self._h, -1 * item)
+        heappush(self._h, -1 * item)
 
     def pushpop(self, item):
         """
@@ -47,9 +47,9 @@ class minheapq:
     def __init__(self, L=[]):
         """
         A simple wrapper for heapq to match my intuitions about how a heap would be
-        implemented/to match maxheapq.
+        implemented/to match max
         """
-        heapq.heapify(L)
+        heapify(L)
         self._h = L
         self._l = len(L)
 
@@ -64,14 +64,14 @@ class minheapq:
         Pops the minimum value off the heap.
         """
         self._l -= 1
-        return(heapq.heappop(self._h))
+        return(heappop(self._h))
 
     def push(self, item):
         """
         Pushes as new value onto the heap.
         """
         self._l += 1
-        heapq.heappush(self._h, item)
+        heappush(self._h, item)
 
     def pushpop(self, item):
         """
@@ -106,7 +106,9 @@ class tuple_min_heapq:
     def delete(self, key):
         if key in self._d.keys():
             del self._d[key]
-            self._h = [(v, k) for (v, k) in self._h if (k != key)]
+            self._h[i] = self._h[-1]
+            self._h.pop()
+            heapify(self._h)
 
     def length(self):
         """
@@ -119,7 +121,8 @@ class tuple_min_heapq:
         Pops the minimum value off the heap.
         """
         self._l -= 1
-        inter_tuple = heapq.heappop(self._h)
+        inter_tuple = heappop(self._h)
+        heapify(self._h)
         del self._d[inter_tuple[1]]
         return(inter_tuple[1], inter_tuple[0])
 
@@ -129,7 +132,8 @@ class tuple_min_heapq:
         """
         self._l += 1
         self._d[key] = value
-        heapq.heappush(self._h, (value, key))
+        heappush(self._h, (value, key))
+        heapify(self._h)
 
     def pushpop(self, key, value):
         """
@@ -146,3 +150,4 @@ class tuple_min_heapq:
         if self._d[key] != value:
             self._d[key] = value
             self._h = [(v, k) if (k != key) else (value, key) for (v, k) in self._h]
+            heapify(self._h)
