@@ -1,4 +1,5 @@
 import unittest
+import random
 
 class BinarySearchTree:
     """
@@ -20,6 +21,20 @@ class BinarySearchTree:
             self._left = left
             self._right = right
             self._rank = rank
+
+        def _rerank(self):
+            """
+            Updates _rank to match the rank of it's children.
+            """
+            if self._left:
+                lr = self._left._rank
+            else:
+                lr = 0
+            if self._right:
+                rr = self._right._rank
+            else:
+                rr = 0
+            self._rank = lr + rr + 1
 
     def add(self, value):
         """
@@ -53,35 +68,91 @@ class BinarySearchTree:
         """
         Deletes a value from the binary search tree.
         """
-        if self._root == None:
+        if self._root == None or value == None:
             return
-        result = _find(self._root, value)
-        if result == None:
-            return
-        new_val = self._find_min(result._right)
-        result._value = new_val._left._value
-        new_val._left = None
+        self._root = self._delete(self._root, value)
 
-    def _find_min(self, node):
+    def _delete(self, node, value):
+        """
+        Recursive helper function for deleting nodes from the binary search 
+        tree.
+        """
+        if node == None:
+            return None
+        if node._value < value:
+            node._left = self._delete(node._left, value)
+        elif node._value > value:
+            node._right = self._delete(node._right, value)
+        else:
+            if node._left == None:
+                return node._right
+            if node._right == None:
+                return node._left
+            temp_node = node
+            node = self._min(temp_node._right)
+            node._right = self._deleteMin(temp_node._right)
+            node._left = temp_node._left
+        node._rerank()
+        return node
+
+    def deleteMin(self):
+        """
+        Deletes the minimum node from the binary search tree.
+        """
+        if self.isEmpty():
+            raise NodeNotExistsError('BinarySearchTree underflow error.')
+        else:
+            self._root = self._deleteMin(self._root)
+
+    def _deleteMin(self, node):
+        """
+        Deletes the minimum node that is the child of the given node.
+        """
+        if node._left == None:
+            return node._right
+        node._left = self._deleteMin(node._left)
+        node._rerank()
+        return node
+
+    def deleteMax(self):
+        """
+        Deletes the maximum node from the binary search tree.
+        """
+        if self.isEmpty():
+            raise NodeNotExistsError('BinarySearchTree underflow error.')
+        else:
+            self._root = self._deleteMax(self._root)
+
+    def _deleteMax(self, node):
+        """
+        Deletes the maximum node that is the child of the given node.
+        """
+        if node._right == None:
+            return node._left
+        node._right = self._deleteMax(node._right)
+        node._rerank()
+        return node
+
+    def _find_min(self, node, turned=True):
         """
         A helper function for delete() that finds a candidate replacement node.
         """
         if node._left._left == None:
             return node
         else:
-            return _find_min(node._left)
+            return self._find_min(node._left)
 
     def find(self, value):
         """
         Finds a value in the binary search tree.  Returns the value if it is
-        found in the bst, -1 otherwise.
+        found in the bst, None otherwise.
         """
         if self._root == None:
-            return -1
+            return None
         else:
             result = self._find(self._root, value)
             if result == None:
-                return -1
+                return None
             else:
                 return result._value
 
@@ -89,18 +160,55 @@ class BinarySearchTree:
         """
         The recursive helper function for find().
         """
-        if node._value == value:
-            return node
-        elif value > node._value:
-            if node._right == None:
-                return None
-            else:
-                return self._find(node._right, value)
+        if node == None:
+            return None
+        if value > node._value:
+            return self._find(node._right, value)
         elif value < node._value:
-            if node._left == None:
-                return None
-            else:
-                return self._find(node._left, value)
+            return self._find(node._left, value)
+        return node
+
+    def isEmpty(self):
+        """
+        Returns True is the binary search tree is empty, False otherwise.
+        """
+        return self.size() == 0
+
+    def max(self):
+        """
+        Gets the maximum node in the binary search tree.
+        """
+        if self.isEmpty():
+            return None
+        return self._max(self._root)._value
+
+    def _max(self, node):
+        """
+        Internal helper function that returns the maximum value that is the 
+        child of the given node.
+        """
+        if node._right == None:
+            return node
+        else:
+            return self._max(node._right)
+
+    def min(self):
+        """
+        Gets the minimum node in the binary search tree.
+        """
+        if self.isEmpty():
+            return None
+        return self._min(self._root)._value
+
+    def _min(self, node):
+        """
+        Internal helper function that returns the minimum value that is the
+        child of the given node.
+        """
+        if node._left == None:
+            return node
+        else:
+            return self._min(node._left)
 
     def size(self):
         """
@@ -111,17 +219,24 @@ class BinarySearchTree:
         else:
             return self._root._rank
 
+class NodeNotExistsError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
 class BSTTests(unittest.TestCase):
     def setUp(self):
-        self.simpleBST = BinarySearchTree()
-        self.simpleElems = [5,3,7,1,9,2,4,6,8,0]
-        for e in self.simpleElems:
-            self.simpleBST.add(e)
+        self.randBST = BinarySearchTree()
+        self.randElems = list(set([random.randint(0,10000) for x in range(1000)]))
+        for e in self.randElems:
+            self.randBST.add(e)
 
     def test_add_one(self):
         bst = BinarySearchTree()
         bst.add(3)
         self.assertEqual(bst._root._value, 3)
+        self.assertEqual(bst._root._rank, 1)
 
     def test_add_three(self):
         bst = BinarySearchTree()
@@ -131,11 +246,41 @@ class BSTTests(unittest.TestCase):
         self.assertEqual(bst._root._value, 3)
         self.assertEqual(bst._root._left._value, 1)
         self.assertEqual(bst._root._right._value, 5)
+        self.assertEqual(bst._root._rank, 3)
+        self.assertEqual(bst._root._left._rank, 1)
+        self.assertEqual(bst._root._right._rank, 1)
+
+    def test_delete(self):
+        for elem in self.randElems:
+            if random.random() > .5:
+                self.randBST.delete(elem)
+            else:
+                self.assertEqual(elem, self.randBST.find(elem))
+
+    def test_deletemin(self):
+        elems = sorted(self.randElems)
+        for i in range(len(elems)):
+            self.assertEqual(self.randBST.find(elems[i]), elems[i])
+            self.randBST.deleteMin()
+            self.assertIsNone(self.randBST.find(elems[i]))
+
+    def test_deletemax(self):
+        elems = sorted(self.randElems)
+        for i in range(0, len(elems), -1):
+            self.assertEqual(self.randBST.find(elems[i]), elems[i])
+            self.randBST.deleteMax()
+            self.assertIsNone(self.randBST.find(elems[i]))
 
     def test_find_contained_elem(self):
-        for e in self.simpleElems:
-            self.assertEqual(e, self.simpleBST.find(e))
+        for e in self.randElems:
+            self.assertEqual(e, self.randBST.find(e))
 
     def test_find_missing_elem(self):
-        self.assertEqual(-1, self.simpleBST.find(10))
-        self.assertEqual(-1, self.simpleBST.find(-1))
+        self.assertIsNone(self.randBST.find(11))
+        self.assertIsNone(self.randBST.find(-1))
+
+    def test_max(self):
+        self.assertEqual(max(self.randElems), self.randBST.max())
+
+    def test_min(self):
+        self.assertEqual(min(self.randElems), self.randBST.min())
