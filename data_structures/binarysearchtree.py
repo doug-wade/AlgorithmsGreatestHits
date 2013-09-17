@@ -219,6 +219,17 @@ class BinarySearchTree:
         else:
             return self._root._rank
 
+    def rank(self, value):
+        """
+        Returns the number of nodes that are children of this node, inclusive,
+        if the node is found in the binary search tree, None otherwise.
+        """
+        found = self._find(self._root, value)
+        if found == None:
+            return None
+        else:
+            return found._rank
+
 class NodeNotExistsError(Exception):
     def __init__(self, value):
         self.value = value
