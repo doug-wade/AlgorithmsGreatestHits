@@ -2,7 +2,6 @@ import sys
 sys.path.insert(0, '../data_structures')
 
 import os
-import pdb
 from heaps import tuple_min_heapq
 from graph import graph
 

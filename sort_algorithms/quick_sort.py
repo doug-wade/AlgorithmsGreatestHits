@@ -3,6 +3,7 @@ import math
 import numpy
 import os
 import random
+import unittest
 
 # An object to pass around the results
 result = collections.namedtuple('result', ['array', 'comparisons'])
@@ -42,7 +43,7 @@ def partition(array_to_partition, start_index, end_index, partition_style):
     elif partition_style.lower()[0] == "r":
         return math.floor(random.random() * end_index + 1)
 
-def quick_sort(sort_array, pivot_type):
+def quick_sort(sort_array, pivot_type='r'):
     """Sorts an array using the quick sort algorithm."""
     comparisons = quick_sort_internal(sort_array, 0, len(sort_array), pivot_type)
     return result(sort_array, comparisons) 
