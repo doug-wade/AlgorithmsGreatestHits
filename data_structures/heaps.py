@@ -1,6 +1,6 @@
 from heapq import *
 
-class maxheapq:
+class MaxHeap:
     """
     Simple wrappers for the built-in heapq module for ease of use.
     """
@@ -43,7 +43,7 @@ class maxheapq:
         return(self.pop())
 
 
-class minheapq:
+class MinHeap:
     def __init__(self, L=[]):
         """
         A simple wrapper for heapq to match my intuitions about how a heap would be
@@ -81,7 +81,7 @@ class minheapq:
         self.push(item)
         return(self.pop())
 
-class tuple_min_heapq:
+class TupleMinHeap:
     def __init__(self):
         """
         A simple wrapper for heapq to match my intuitions about how a heap would be

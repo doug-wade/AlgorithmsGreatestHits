@@ -1,6 +1,6 @@
 import random
 
-class graph:
+class Graph:
     """
     An implementation of a graph as a dictionary of dictionaries.
     """
@@ -46,10 +46,14 @@ class graph:
         """
         Gets an edge from node1 to node2.  Returns the edge's weight.
         """
+        if node1 == node2:
+            return 0
+        if node1 not in self._G or node2 not in self._G[node1]:
+            return None
         return self._G[node1][node2]
 
     def get_random_node(self):
         """
         Returns a random node from the graph
         """
-        return random.choice(list(self._G.keys()))
+        return random.choice(list(self._G.keys())) 

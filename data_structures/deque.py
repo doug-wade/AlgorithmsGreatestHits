@@ -1,7 +1,7 @@
 import unittest
 import random
 
-class deque:
+class Deque:
     """
     An implementation of a deck that allows pushing and popping from both the
     front and the back of a doubly linked list.
@@ -79,7 +79,7 @@ class deque:
 
 class dequeTests(unittest.TestCase):
     def test_append_one(self):
-        d = deque()
+        d = Deque()
         d.append("this is the last value")
         self.assertIsNone(d._first.prev, d._last.next)
         self.assertEqual(d._first.value, d._last.value,
@@ -87,7 +87,7 @@ class dequeTests(unittest.TestCase):
         self.assertEqual(d.size(), 1)
 
     def test_append_two(self):
-        d = deque()
+        d = Deque()
         d.append(1)
         d.append(2)
         self.assertIsNone(d._first.prev, d._last.next)
@@ -96,7 +96,7 @@ class dequeTests(unittest.TestCase):
         self.assertEqual(d.size(), 2)
 
     def test_prepend_one(self):
-        d = deque()
+        d = Deque()
         d.prepend("this is the first value")
         self.assertIsNone(d._first.prev, d._last.next)
         self.assertEqual(d._first.value, d._last.value,
@@ -104,7 +104,7 @@ class dequeTests(unittest.TestCase):
         self.assertEqual(d.size(), 1)
 
     def test_prepend_two(self):
-        d = deque()
+        d = Deque()
         d.prepend(2)
         d.prepend(1)
         self.assertIsNone(d._first.prev, d._last.next)
@@ -114,7 +114,7 @@ class dequeTests(unittest.TestCase):
 
     def test_pop_first(self):
         comp_list = []
-        d = deque()
+        d = Deque()
         for i in range(10):
             new_int = random.randint(0,10000)
             comp_list.append(new_int)
@@ -126,7 +126,7 @@ class dequeTests(unittest.TestCase):
 
     def test_pop_last(self):
         comp_list = []
-        d = deque()
+        d = Deque()
         for i in range(10):
             new_int = random.randint(0,10000)
             comp_list.append(new_int)
