@@ -2,15 +2,39 @@
 
 Python 3 implementations of various algorithms and data structures for studying.
 
+## Installing the dependencies
+
+Quick sort requires numpy, which you can install with pip, or for users on Ubuntu-based linux distros, by installing the python3-numpy package from aptitude.
+
 ## Running the Tests
 
 To run the tests for one class:
 
-    python3 -m unittest path/to/class.py
+    python3 -m unittest path.to.class
 
-For example, to run the hashmap tests:
+For example, to run the binary search tress tests:
 
-    python3 -m unittest data_structures/hashmap.py
+    python3 -m unittest data_structures.test_binarysearchtree
+
+To run all unit tests:
+
+    python3 -m unittest discover
+
+## TODO
+
+### Refactor
+* data_structures
+** Implement heaps for yourself
+
+### Unit test
+* data_structures
+** graph
+* graph_algorithms
+** all of them
+* other_algorithms
+** all of them
+* search_algorithms
+** rselect
 
 To run all unit tests:
 

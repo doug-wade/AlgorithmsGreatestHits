@@ -4,6 +4,11 @@ import unittest
 
 class BSTTests(unittest.TestCase):
     def setUp(self):
+        bst = BinarySearchTree()
+        bst.add(1)
+        bst.add(2)
+        bst.add(3)
+        self.bst = bst
         self.randBST = BinarySearchTree()
         self.randElems = list(set([random.randint(0,10000) for x in range(1000)]))
         for e in self.randElems:
@@ -53,8 +58,8 @@ class BSTTests(unittest.TestCase):
             self.assertEqual(e, self.randBST.find(e))
 
     def test_find_missing_elem(self):
-        self.assertIsNone(self.randBST.find(11))
-        self.assertIsNone(self.randBST.find(-1))
+        self.assertIsNone(self.bst.find(11))
+        self.assertIsNone(self.bst.find(-1))
 
     def test_max(self):
         self.assertEqual(max(self.randElems), self.randBST.max())

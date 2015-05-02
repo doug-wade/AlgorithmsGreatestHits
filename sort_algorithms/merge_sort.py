@@ -1,7 +1,4 @@
-import unittest
-import random
-
-def mergesort(array):
+def merge_sort(array):
     """
     An implementation of the merge sort algorithm.  Recursively sorts arrays
     by calling merge sort on halves of the array, then merging by comparing
@@ -9,7 +6,7 @@ def mergesort(array):
     the sorted array.
     """
     # Base Cases
-    if len(array) == 1:
+    if len(array) == 1 or len(array) == 0:
         return array
     elif len(array) == 2:
         if array[0] > array[1]:
@@ -20,8 +17,8 @@ def mergesort(array):
 
         # Split the array into 2 equal parts and sort them
         middle = int(len(array)/2)
-        left = mergesort(array[:middle].copy())
-        right = mergesort(array[middle:].copy())
+        left = merge_sort(array[:middle].copy())
+        right = merge_sort(array[middle:].copy())
 
         # Merge the sorted halves
         ll, lr = len(left), len(right)
@@ -36,20 +33,9 @@ def mergesort(array):
 
         return sort
 
-def mergesort_from_file(file_path):
-    """ 
+def merge_sort_from_file(file_path):
+    """
     Performs merge sort on a text file that contains an array containing
     a single element per line.
     """
-    return mergesort([int(line) for line in open(file_path)])
-
-
-class MergeSortTests(unittest.TestCase):
-    def setUp(self):
-        self.list_of_ints = []
-        for i in range(100000):
-            next_int = random.randint(0,10000)
-            self.list_of_ints.append(next_int)
-
-    def test_merge_sort(self):
-        self.assertEqual(sorted(self.list_of_ints), mergesort(self.list_of_ints))
+    return merge_sort([int(line) for line in open(file_path)])

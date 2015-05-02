@@ -1,6 +1,3 @@
-import unittest
-import random
-
 def exchange(list_to_exchange, x, y):
     last_val = list_to_exchange[y]
     for i in range(y, x, -1):
@@ -23,14 +20,3 @@ def insertion_sort(list_to_sort):
                 exchange(list_to_sort, j, i)
                 break
     return list_to_sort
-
-class InsertionSortTests(unittest.TestCase):
-
-    def setUp(self):
-        self.list_of_ints = []
-        for i in range(1000):
-            next_int = random.randint(0,10000)
-            self.list_of_ints.append(next_int)
-
-    def test_insertion_sort(self):
-        self.assertEqual(sorted(self.list_of_ints), insertion_sort(self.list_of_ints))
