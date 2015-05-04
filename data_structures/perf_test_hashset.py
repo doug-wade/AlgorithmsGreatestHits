@@ -14,11 +14,8 @@ class HashSetTests(unittest.TestCase):
             random_email += random.choice(top_level_domains)
             return random_email
 
-        print("generating emails...")
         test_emails = [ get_random_email() for _ in range(50000) ] * 2
-        print("shuffling emails...")
         random.shuffle(test_emails)
-        print("deduping emails...")
         def dedupe_emails(emails):
             encountered = HashSet()
             deduped = []
@@ -27,4 +24,4 @@ class HashSetTests(unittest.TestCase):
                     deduped.append(email)
                     encountered.add(email)
             return deduped
-        print(timeit.timeit(lambda: dedupe_emails(test_emails), number=1))
+        self.assertTrue(timeit.timeit(lambda: dedupe_emails(test_emails), number=1) < 1)
