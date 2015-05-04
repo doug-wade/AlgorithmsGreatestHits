@@ -20,6 +20,10 @@ To run all unit tests:
 
     python3 -m unittest discover
 
+There are also a couple of performance tests that can't be run at the same time as other tests:
+
+    python3 -m unittest data_structures.perf_test_trie
+
 ## TODO
 
 ### Refactor
@@ -48,14 +52,11 @@ To run all unit tests:
 
 ### Unit test
 * data_structures
-** graph
-** MinHeap
-** MaxHeap
-** TupleHeap
+  * graph
 * graph_algorithms
-** all of them (FOR SHAME)
+  * all of them (FOR SHAME)
 * other_algorithms
-** all of them (SLACKER)
+  * all of them (SLACKER)
 
 
 ## Contributing

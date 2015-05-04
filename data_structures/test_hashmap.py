@@ -1,20 +1,6 @@
 from .hashmap import HashMap
+from utils.mock_hash import MockHash
 import unittest
-
-class MockHash:
-    def __init__(self, hash):
-        self.hash = hash
-
-    def __hash__(self):
-        return self.hash
-
-class MockHashTest(unittest.TestCase):
-    def setUp(self):
-        self.hash_val = 42
-        self.underTest = MockHash(self.hash_val)
-
-    def test_hash(self):
-        self.assertEqual(self.underTest.hash, self.hash_val)
 
 class HashMapTests(unittest.TestCase):
     def setUp(self):
