@@ -66,3 +66,27 @@ class BSTTests(unittest.TestCase):
 
     def test_min(self):
         self.assertEqual(min(self.randElems), self.randBST.min())
+
+    def test_in_order_traversal(self):
+        def to_string(node, acc):
+            if acc == "":
+                return str(node)
+            return acc + "," + str(node)
+
+        self.assertEqual(self.bst.in_order_traversal(to_string, ""), "1,2,3")
+
+    def test_pre_order_traversal(self):
+        def to_string(node, acc):
+            if acc == "":
+                return str(node)
+            return acc + "," + str(node)
+
+        self.assertEqual(self.bst.pre_order_traversal(to_string, ""), "1,2,3")
+
+    def test_post_order_traversal(self):
+        def to_string(node, acc):
+            if acc == "":
+                return str(node)
+            return acc + "," + str(node)
+
+        self.assertEqual(self.bst.post_order_traversal(to_string, ""), "2,3,1")

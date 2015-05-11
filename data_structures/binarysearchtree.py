@@ -1,3 +1,51 @@
+class Node:
+    """
+    Represents a node in the binary search tree.
+    """
+    def __init__(self, value, rank=1, left=None, right=None):
+        self._value = value
+        self._left = left
+        self._right = right
+        self._rank = rank
+
+    def _rerank(self):
+        """
+        Updates _rank to match the rank of it's children.
+        """
+        if self._left:
+            lr = self._left._rank
+        else:
+            lr = 0
+        if self._right:
+            rr = self._right._rank
+        else:
+            rr = 0
+        self._rank = lr + rr + 1
+
+    def in_order_traversal(self, func, acc):
+        if self._left is not None:
+            acc = self._left.in_order_traversal(func, acc)
+        acc = func(self._value, acc)
+        if self._right is not None:
+            acc = self._right.in_order_traversal(func, acc)
+        return acc
+
+    def post_order_traversal(self, func, acc):
+        if self._left is not None:
+            acc = self._left.in_order_traversal(func, acc)
+        if self._right is not None:
+            acc = self._right.in_order_traversal(func, acc)
+        acc = func(self._value, acc)
+        return acc
+
+    def pre_order_traversal(self, func, acc):
+        acc = func(self._value, acc)
+        if self._left is not None:
+            acc = self._left.in_order_traversal(func, acc)
+        if self._right is not None:
+            acc = self._right.in_order_traversal(func, acc)
+        return acc
+
 class BinarySearchTree:
     """
     The most simple version of a binary search tree, implemented as a recursive
@@ -9,36 +57,12 @@ class BinarySearchTree:
         """
         self._root = None
 
-    class Node:
-        """
-        Represents a node in the binary search tree.
-        """
-        def __init__(self, value, rank=1, left=None, right=None):
-            self._value = value
-            self._left = left
-            self._right = right
-            self._rank = rank
-
-        def _rerank(self):
-            """
-            Updates _rank to match the rank of it's children.
-            """
-            if self._left:
-                lr = self._left._rank
-            else:
-                lr = 0
-            if self._right:
-                rr = self._right._rank
-            else:
-                rr = 0
-            self._rank = lr + rr + 1
-
     def add(self, value):
         """
         Adds a new node to the binary search tree.
         """
         if self._root == None:
-            self._root = self.Node(value)
+            self._root = Node(value)
         else:
             self._add(self._root, value)
 
@@ -48,13 +72,13 @@ class BinarySearchTree:
         """
         if value < node._value:
             if node._left == None:
-                node._left = self.Node(value)
+                node._left = Node(value)
                 node._rank += 1
             else:
                 self._add(node._left, value)
         elif value > node._value:
             if node._right == None:
-                node._right = self.Node(value)
+                node._right = Node(value)
                 node._rank += 1
             else:
                 self._add(node._right, value)
@@ -226,6 +250,36 @@ class BinarySearchTree:
             return None
         else:
             return found._rank
+
+    def in_order_traversal(self, func, acc):
+        """
+        Takes a function, func, and calls it for every value in the binary search tree in order.
+        The function should take two arguments, the first being the current node, and the second
+        being the return value from the previous function call.
+        """
+        if self._root is None:
+            return acc
+        return self._root.in_order_traversal(func, acc)
+
+    def pre_order_traversal(self, func, acc):
+        """
+        Takes a function, func, and calls it for every value in the binary search tree in order.
+        The function should take two arguments, the first being the current node, and the second
+        being the return value from the previous function call.
+        """
+        if self._root is None:
+            return acc
+        return self._root.pre_order_traversal(func, acc)
+
+    def post_order_traversal(self, func, acc):
+        """
+        Takes a function, func, and calls it for every value in the binary search tree in order.
+        The function should take two arguments, the first being the current node, and the second
+        being the return value from the previous function call.
+        """
+        if self._root is None:
+            return acc
+        return self._root.post_order_traversal(func, acc)
 
 class NodeNotExistsError(Exception):
     def __init__(self, value):
