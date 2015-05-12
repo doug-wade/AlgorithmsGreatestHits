@@ -1,3 +1,5 @@
+import pdb
+
 class TrieNode:
     def __init__(self, letter):
         self.letter = letter
@@ -32,16 +34,16 @@ class TrieNode:
         else:
             return child_nodes[0]
 
-    def __get_next_nonduplicate(self, string):
+    def __get_next_nonduplicate(self, letter, string):
         if len(string) == 1:
-            return string[0]
+            return (string[0], "")
 
         for i in range(len(string)):
-            if string[i] != string[i+1] and not (self.__is_vowel(string[i]) and self.__is_vowel(string[i+1])):
-                return string[i]
+            if letter is not string[i] and not (self.__is_vowel(letter) and self.__is_vowel(string[i])):
+                return (string[i], string[i:])
 
     def __is_vowel(self, letter):
-        return letter in self.vowels
+        return letter.lower() in self.vowels
 
     def find(self, to_find, acc):
         matches = self.__contains(to_find[0], self.children)
@@ -59,19 +61,30 @@ class TrieNode:
             return ""
 
     def fuzzy_find(self, to_find, acc):
-        possibilities = to_find[0]
-        possibilities += self.__get_next_nonduplicate(to_find)
-        matches = self.__fuzzy_contains(possibilities, self.children)
-
-        if len(matches) < 1:
-            return [ "NO SUGGESTION" ]
-
         acc += self.letter
+        if to_find is "":
+            if self.is_word:
+                return [ acc ]
+            else:
+                return []
 
-        if len(to_find) > 1:
-            return self.__flatten([ match.fuzzy_find(to_find[1:], acc) for match in matches ])
-        else:
-            return [ acc + match.letter for match in matches if match.is_word ]
+        matches = []
+
+        if self.letter is not "" and to_find[0] == self.letter:
+            possibilities = self.__get_next_nonduplicate(self.letter, to_find)
+            pdb.set_trace()
+            if possibilities[1] is "" and self.is_word:
+                matches.append(acc)
+            else:
+                for child in self.__fuzzy_contains(possibilities[0], self.children):
+                    for match in child.fuzzy_find(possibilities[1], acc):
+                        matches.append(match)
+
+        for child in self.__fuzzy_contains(to_find[0], self.children):
+            for match in child.fuzzy_find(to_find[1:], acc):
+                matches.append(match)
+
+        return matches
 
     def add_string(self, to_add):
         if to_add is "":

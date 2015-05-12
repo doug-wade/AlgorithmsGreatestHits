@@ -8,7 +8,6 @@ class TrieTests(unittest.TestCase):
         self.test_emails = [ "douglas.b.wade@example.com", "doug.wade@example.com", "doug@example.com", "d@example.com" ]
         self.not_present_email = "not_found@example.com"
         self.vowel_pattern = re.compile("[aeiouAEIOU]")
-        self.any_letter_pattern = re.compile("[a-zA-Z]")
 
         self.under_test = Trie()
         for test_email in self.test_emails:
@@ -45,13 +44,10 @@ class TrieTests(unittest.TestCase):
             to_fuzzy_find = self.vowel_pattern.sub(get_random_vowel, test_email)
             self.assertEqual([ test_email ], self.under_test.fuzzy_find(to_fuzzy_find))
 
-    def test_fuzzy_find_returns_no_suggestion_if_not_found(self):
-        self.assertEqual([ "NO SUGGESTION"], self.under_test.fuzzy_find(self.not_present_email))
+    def test_fuzzy_find_returns_empty_list_if_not_found(self):
+        self.assertEqual([ ], self.under_test.fuzzy_find(self.not_present_email))
 
     def test_fuzzy_find_with_repeated_letters(self):
-        def double_letter(match):
-            return match.group(0) * 2
         for test_email in self.test_emails:
-            to_fuzzy_find = self.any_letter_pattern.sub(double_letter, test_email)
-            print(to_fuzzy_find)
+            to_fuzzy_find = "d" + test_email
             self.assertEqual([ test_email ], self.under_test.fuzzy_find(to_fuzzy_find))
